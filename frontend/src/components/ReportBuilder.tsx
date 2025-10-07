@@ -72,7 +72,7 @@ const ReportBuilder = () => {
 
   const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null);
 
-  const onNodeClick = useCallback((event: React.MouseEvent, node: Node) => {
+  const onNodeClick = useCallback((_event: React.MouseEvent, node: Node) => {
     setSelectedNode(node);
   }, []);
 
@@ -225,7 +225,7 @@ const ReportBuilder = () => {
               label="Role"
               options={roleOptions}
               selectedKey={selectedNode.data.filters?.role}
-              onChange={(e, option) => updateNodeData(selectedNode.id, { filters: { ...selectedNode.data.filters, role: option?.key as string } })}
+              onChange={(_e, option) => updateNodeData(selectedNode.id, { filters: { ...selectedNode.data.filters, role: option?.key as string } })}
             />
           </div>
         )}

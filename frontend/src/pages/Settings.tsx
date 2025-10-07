@@ -22,8 +22,8 @@ const Settings = () => {
     <Stack tokens={{ childrenGap: 20, padding: 20 }}>
       <Text variant="xLarge">Settings</Text>
       <TextField label="Organization Name" defaultValue="M365 Agent" />
-      <TextField label="Azure AD Client ID" value={clientId} onChange={(e, newValue) => setClientId(newValue || '')} />
-      <TextField label="Azure AD Tenant ID" value={tenantId} onChange={(e, newValue) => setTenantId(newValue || '')} />
+      <TextField label="Azure AD Client ID" value={clientId} onChange={(_e, newValue) => setClientId(newValue || '')} />
+      <TextField label="Azure AD Tenant ID" value={tenantId} onChange={(_e, newValue) => setTenantId(newValue || '')} />
       <Toggle label="Enable Notifications" defaultChecked />
       <Toggle label="Dark Mode" />
       <PrimaryButton text="Save Changes" onClick={handleSave} />

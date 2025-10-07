@@ -1,9 +1,10 @@
+import React from 'react'
 import { Stack, Nav, Persona, PersonaSize, DefaultButton, Text } from '@fluentui/react'
 import type { INavLink, INavLinkGroup } from '@fluentui/react'
 import { useMsal } from '@azure/msal-react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-const Layout = () => {
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { accounts, instance } = useMsal()
   const navigate = useNavigate()
 
@@ -32,7 +33,7 @@ const Layout = () => {
     },
   ]
 
-  const handleNavClick = (ev?: React.MouseEvent<HTMLElement>, item?: INavLink) => {
+  const handleNavClick = (_ev?: React.MouseEvent<HTMLElement>, item?: INavLink) => {
     if (item) {
       navigate(item.url)
     }
@@ -60,7 +61,7 @@ const Layout = () => {
           styles={{ root: { width: 200, borderRight: '1px solid #e1e1e1' } }}
         />
         <Stack grow styles={{ root: { padding: 0, overflow: 'auto' } }}>
-          <Outlet />
+          {children}
         </Stack>
       </Stack>
     </Stack>
