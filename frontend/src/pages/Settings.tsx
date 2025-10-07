@@ -19,13 +19,36 @@ const Settings = () => {
   }
 
   return (
-    <Stack tokens={{ childrenGap: 20, padding: 20 }}>
-      <Text variant="xLarge">Settings</Text>
-      <TextField label="Organization Name" defaultValue="M365 Agent" />
-      <TextField label="Azure AD Client ID" value={clientId} onChange={(_e, newValue) => setClientId(newValue || '')} />
-      <TextField label="Azure AD Tenant ID" value={tenantId} onChange={(_e, newValue) => setTenantId(newValue || '')} />
-      <Toggle label="Enable Notifications" defaultChecked />
-      <Toggle label="Dark Mode" />
+    <Stack tokens={{ childrenGap: 24 }}>
+      <Text variant="xxLarge" styles={{ root: { fontWeight: 600 } }}>Settings</Text>
+      <Text variant="large" styles={{ root: { color: '#605e5c' } }}>Configure system preferences and integrations</Text>
+
+      <Stack tokens={{ childrenGap: 16 }}>
+        <Text variant="xLarge" styles={{ root: { fontWeight: 600 } }}>General</Text>
+        <TextField label="Organization Name" defaultValue="M365 Agent" styles={{ root: { maxWidth: 400 } }} />
+        <Toggle label="Enable Notifications" defaultChecked />
+        <Toggle label="Dark Mode" />
+      </Stack>
+
+      <Stack tokens={{ childrenGap: 16 }}>
+        <Text variant="xLarge" styles={{ root: { fontWeight: 600 } }}>Azure AD Integration</Text>
+        <Text variant="medium" styles={{ root: { color: '#605e5c' } }}>
+          Configure your Azure Active Directory settings. Note: Changes require a page reload.
+        </Text>
+        <TextField
+          label="Client ID"
+          value={clientId}
+          onChange={(_e, newValue) => setClientId(newValue || '')}
+          styles={{ root: { maxWidth: 400 } }}
+        />
+        <TextField
+          label="Tenant ID"
+          value={tenantId}
+          onChange={(_e, newValue) => setTenantId(newValue || '')}
+          styles={{ root: { maxWidth: 400 } }}
+        />
+      </Stack>
+
       <PrimaryButton text="Save Changes" onClick={handleSave} />
     </Stack>
   )

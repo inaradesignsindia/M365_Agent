@@ -6,12 +6,14 @@ import { Dialog, DialogType, DialogFooter, PrimaryButton, DefaultButton, TextFie
 const AuthButton = () => {
   const { instance, accounts } = useMsal();
   const isAuthenticated = accounts.length > 0;
+  console.log('AuthButton - isAuthenticated:', isAuthenticated, 'accounts:', accounts);
   const [user, setUser] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [clientId, setClientId] = useState('');
   const [tenantId, setTenantId] = useState('');
 
   useEffect(() => {
+    console.log('AuthButton useEffect - isAuthenticated:', isAuthenticated);
     if (isAuthenticated) {
       acquireTokenAndFetchUser();
     } else {

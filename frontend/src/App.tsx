@@ -6,11 +6,15 @@ import Layout from './components/Layout'
 import Dashboard from './pages/Dashboard'
 import Reports from './pages/Reports'
 import Settings from './pages/Settings'
+import Users from './pages/Users'
+import Groups from './pages/Groups'
+import Teams from './pages/Teams'
 import './App.css'
 
 function App() {
   const { accounts } = useMsal()
   const isAuthenticated = accounts.length > 0
+  console.log('App - isAuthenticated:', isAuthenticated, 'accounts:', accounts)
 
   const theme = createTheme({
     palette: {
@@ -55,6 +59,9 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/groups" element={<Groups />} />
+            <Route path="/teams" element={<Teams />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>
