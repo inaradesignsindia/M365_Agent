@@ -1,4 +1,4 @@
-import { Stack, Text, DetailsList, SelectionMode, Pivot, PivotItem } from '@fluentui/react'
+import { Stack, Text, DetailsList, SelectionMode } from '@fluentui/react'
 import type { IColumn } from '@fluentui/react'
 import ReportBuilder from '../components/ReportBuilder'
 
