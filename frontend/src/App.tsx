@@ -9,6 +9,10 @@ import Settings from './pages/Settings'
 import Users from './pages/Users'
 import Groups from './pages/Groups'
 import Teams from './pages/Teams'
+import Intune from './pages/Intune'
+import Defender from './pages/Defender'
+import ServiceHealth from './pages/ServiceHealth'
+import MessageCenter from './pages/MessageCenter'
 import './App.css'
 
 function App() {
@@ -62,7 +66,11 @@ function App() {
             <Route path="/users" element={<Users />} />
             <Route path="/groups" element={<Groups />} />
             <Route path="/teams" element={<Teams />} />
+            <Route path="/intune" element={<Intune />} />
+            <Route path="/defender" element={<Defender />} />
             <Route path="/reports" element={<Reports />} />
+            <Route path="/service-health" element={<ServiceHealth />} />
+            <Route path="/message-center" element={<MessageCenter />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>
         </Layout>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Stack, Nav, Persona, PersonaSize, IconButton, SearchBox, ContextualMenu, Text, Breadcrumb } from '@fluentui/react'
+import { Stack, Nav, Persona, PersonaSize, IconButton, SearchBox, ContextualMenu, Text, Breadcrumb, DefaultButton } from '@fluentui/react'
 import type { INavLink, INavLinkGroup, IContextualMenuItem, IBreadcrumbItem } from '@fluentui/react'
 import { useMsal } from '@azure/msal-react'
 import { useNavigate, useLocation } from 'react-router-dom'
@@ -10,6 +10,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation()
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [userMenuVisible, setUserMenuVisible] = useState(false)
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
 
   const navLinkGroups: INavLinkGroup[] = [
     {
@@ -44,6 +45,18 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           key: 'teams',
           icon: 'TeamsLogo',
         },
+        {
+          name: 'Intune',
+          url: '/intune',
+          key: 'intune',
+          icon: 'CellPhone',
+        },
+        {
+          name: 'Defender',
+          url: '/defender',
+          key: 'defender',
+          icon: 'Shield',
+        },
       ],
     },
     {
@@ -54,6 +67,18 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           url: '/reports',
           key: 'reports',
           icon: 'ReportDocument',
+        },
+        {
+          name: 'Service Health',
+          url: '/service-health',
+          key: 'service-health',
+          icon: 'Health',
+        },
+        {
+          name: 'Message Center',
+          url: '/message-center',
+          key: 'message-center',
+          icon: 'Message',
         },
         {
           name: 'Settings',
@@ -79,6 +104,10 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     if (path === '/users') items.push({ text: 'Users', key: 'users' })
     if (path === '/groups') items.push({ text: 'Groups', key: 'groups' })
     if (path === '/teams') items.push({ text: 'Teams', key: 'teams' })
+    if (path === '/intune') items.push({ text: 'Intune', key: 'intune' })
+    if (path === '/defender') items.push({ text: 'Defender', key: 'defender' })
+    if (path === '/service-health') items.push({ text: 'Service Health', key: 'service-health' })
+    if (path === '/message-center') items.push({ text: 'Message Center', key: 'message-center' })
     return items
   }
 
@@ -135,6 +164,16 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </Stack>
         <Stack horizontal verticalAlign="center" tokens={{ childrenGap: 8 }}>
           <SearchBox placeholder="Search" styles={{ root: { width: 300 } }} />
+          <IconButton
+            iconProps={{ iconName: theme === 'light' ? 'Sunny' : 'ClearNight' }}
+            onClick={() => {
+              const newTheme = theme === 'light' ? 'dark' : 'light'
+              setTheme(newTheme)
+              localStorage.setItem('theme', newTheme)
+              document.documentElement.classList.toggle('dark', newTheme === 'dark')
+            }}
+            styles={{ root: { color: '#323130' } }}
+          />
           <IconButton iconProps={{ iconName: 'Help' }} styles={{ root: { color: '#323130' } }} />
           <IconButton iconProps={{ iconName: 'Ringer' }} styles={{ root: { color: '#323130' } }} />
           <div>
