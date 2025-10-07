@@ -1,4 +1,4 @@
-import { Stack, Text, DocumentCard, DocumentCardTitle, DocumentCardDetails, Icon } from '@fluentui/react'
+import { Stack, Text, DocumentCard, DocumentCardDetails, Icon } from '@fluentui/react'
 
 const ServiceHealth = () => {
   const services = [
