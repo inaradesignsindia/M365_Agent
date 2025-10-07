@@ -4,6 +4,9 @@ export const getMsalConfig = (): Configuration => {
   const clientId = localStorage.getItem('clientId') || import.meta.env.VITE_CLIENT_ID || 'your-client-id';
   const tenantId = localStorage.getItem('tenantId') || import.meta.env.VITE_TENANT_ID || 'your-tenant-id';
 
+  console.log('MSAL Config - Client ID:', clientId);
+  console.log('MSAL Config - Tenant ID:', tenantId);
+
   return {
     auth: {
       clientId,

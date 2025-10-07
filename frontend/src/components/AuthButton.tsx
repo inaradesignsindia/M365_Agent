@@ -61,7 +61,10 @@ const AuthButton = () => {
   const handleSave = () => {
     localStorage.setItem('clientId', clientId);
     localStorage.setItem('tenantId', tenantId);
+    console.log('Settings saved - Client ID:', clientId, 'Tenant ID:', tenantId);
     setIsModalOpen(false);
+    // Reload page to apply new MSAL config
+    window.location.reload();
   };
 
   return (
