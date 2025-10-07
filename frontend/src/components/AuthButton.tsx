@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useMsal } from '@azure/msal-react';
 import { loginRequest } from '../authConfig';
+import { Dialog, DialogType, DialogFooter, PrimaryButton, DefaultButton, TextField } from '@fluentui/react';
 
 const AuthButton = () => {
   const { instance, accounts } = useMsal();
   const isAuthenticated = accounts.length > 0;
   const [user, setUser] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [clientId, setClientId] = useState('');
+  const [tenantId, setTenantId] = useState('');
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -14,6 +18,11 @@ const AuthButton = () => {
       setUser(null);
     }
   }, [isAuthenticated]);
+
+  useEffect(() => {
+    setClientId(localStorage.getItem('clientId') || '');
+    setTenantId(localStorage.getItem('tenantId') || '');
+  }, []);
 
   const acquireTokenAndFetchUser = async () => {
     try {
@@ -45,6 +54,16 @@ const AuthButton = () => {
     instance.logoutPopup().catch(e => console.error(e));
   };
 
+  const handleOpenModal = () => setIsModalOpen(true);
+
+  const handleCloseModal = () => setIsModalOpen(false);
+
+  const handleSave = () => {
+    localStorage.setItem('clientId', clientId);
+    localStorage.setItem('tenantId', tenantId);
+    setIsModalOpen(false);
+  };
+
   return (
     <div>
       {isAuthenticated ? (
@@ -53,8 +72,38 @@ const AuthButton = () => {
           <button onClick={handleLogout}>Logout</button>
         </div>
       ) : (
-        <button onClick={handleLogin}>Login</button>
+        <div>
+          <button onClick={handleLogin}>Login</button>
+          <button onClick={handleOpenModal}>Settings</button>
+        </div>
       )}
+      <Dialog
+        hidden={!isModalOpen}
+        onDismiss={handleCloseModal}
+        dialogContentProps={{
+          type: DialogType.normal,
+          title: 'Azure AD Settings',
+          subText: 'Configure Client ID and Tenant ID',
+        }}
+        modalProps={{
+          isBlocking: false,
+        }}
+      >
+        <TextField
+          label="Client ID"
+          value={clientId}
+          onChange={(_e, newValue) => setClientId(newValue || '')}
+        />
+        <TextField
+          label="Tenant ID"
+          value={tenantId}
+          onChange={(_e, newValue) => setTenantId(newValue || '')}
+        />
+        <DialogFooter>
+          <PrimaryButton onClick={handleSave} text="Save" />
+          <DefaultButton onClick={handleCloseModal} text="Cancel" />
+        </DialogFooter>
+      </Dialog>
     </div>
   );
 };
