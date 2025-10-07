@@ -4,9 +4,9 @@ import { PublicClientApplication, EventType } from '@azure/msal-browser'
 import { MsalProvider } from '@azure/msal-react'
 import './index.css'
 import App from './App.tsx'
-import { msalConfig } from './authConfig'
+import { getMsalConfig } from './authConfig'
 
-const msalInstance = new PublicClientApplication(msalConfig);
+const msalInstance = new PublicClientApplication(getMsalConfig());
 
 // Optional: Handle auth events
 msalInstance.addEventCallback((event) => {

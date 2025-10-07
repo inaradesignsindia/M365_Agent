@@ -7,11 +7,11 @@ This web application provides organizational login via Microsoft Azure AD, integ
 ### Tech Stack
 
 - **Frontend**: React 18 with TypeScript, Vite, Fluent UI (@fluentui/react), React Router, Redux Toolkit
-- **Backend**: Node.js 18+, Express.js, MSAL Node (@azure/msal-node), Microsoft Graph Client
+- **Backend**: Netlify Functions (Node.js 18+), MSAL Node (@azure/msal-node), Microsoft Graph Client
 - **Database**: MongoDB Atlas (free tier)
 - **Authentication**: Microsoft Azure AD with MSAL
 - **Report Builder**: React Flow for drag-and-drop interface
-- **Deployment**: Vercel (frontend), Heroku/Vercel (backend), MongoDB Atlas
+- **Deployment**: Netlify (frontend and functions), MongoDB Atlas
 
 ## Setup Instructions
 
@@ -64,13 +64,44 @@ This web application provides organizational login via Microsoft Azure AD, integ
 
 The application will be available at `http://localhost:5173` (frontend) and backend API at configured port (default 3000).
 
+## Environment Variables
+
+### Netlify Functions
+- `CLIENT_ID`: Azure AD application client ID
+- `CLIENT_SECRET`: Azure AD application client secret
+- `TENANT_ID`: Azure AD tenant ID
+
+### Frontend
+- `VITE_CLIENT_ID`: Azure AD application client ID (same as functions)
+- `VITE_TENANT_ID`: Azure AD tenant ID (same as functions)
+
+## Deployment to Netlify (Free Tier)
+
+1. Create a new site on Netlify.
+2. Connect your GitHub repository.
+3. Set the following build settings:
+   - **Base directory**: `frontend`
+   - **Build command**: `npm run build`
+   - **Publish directory**: `dist`
+4. Add environment variables in Netlify dashboard:
+   - `CLIENT_ID`
+   - `CLIENT_SECRET`
+   - `TENANT_ID`
+   - `VITE_CLIENT_ID`
+   - `VITE_TENANT_ID`
+5. Deploy.
+
+### Notes
+- Netlify automatically detects and deploys functions from `netlify/functions`.
+- The `netlify.toml` file configures the build and function settings.
+- Netlify free tier includes 100GB bandwidth/month, 100 function invocations/month, and unlimited static sites.
+
 ## Deployment Notes
 
-- **Frontend**: Deploy to Vercel using `npm run build` output. Free tier supports unlimited static sites and serverless functions.
-- **Backend**: Deploy to Heroku (free tier: 512MB RAM, 1 web dyno) or Vercel serverless functions. Use `npm start` for production.
+- **Frontend and Functions**: Deploy to Netlify using `npm run build` output. Free tier supports unlimited static sites and 125k function invocations/month.
 - **Database**: MongoDB Atlas free tier (512MB storage).
-- **CI/CD**: Use GitHub Actions for automated deployment on push to main branch, or leverage Vercel/Heroku built-in deployment.
+- **CI/CD**: Netlify provides built-in deployment on push to main branch.
 - **Security**: Ensure HTTPS, store secrets as environment variables, implement token refresh, and validate permissions.
-- **Monitoring**: Use Vercel/Heroku built-in monitoring and error logging.
+- **Monitoring**: Use Netlify built-in monitoring and error logging.
 
 For detailed architecture and implementation phases, refer to `architecture_plan.md`.

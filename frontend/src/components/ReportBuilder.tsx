@@ -93,8 +93,8 @@ const ReportBuilder = () => {
       account: accounts[0],
     });
 
-    // Send flow to backend
-    const response = await fetch('/api/reports/generate', {
+    // Send flow to Netlify function
+    const response = await fetch('/.netlify/functions/generate-report', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

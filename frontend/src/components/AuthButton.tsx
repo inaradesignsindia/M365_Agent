@@ -20,8 +20,8 @@ const AuthButton = () => {
       const response = await instance.acquireTokenSilent(loginRequest);
       const accessToken = response.accessToken;
 
-      // Call backend API
-      const res = await fetch('http://localhost:3001/api/user', {
+      // Call Netlify function
+      const res = await fetch('/.netlify/functions/user', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
